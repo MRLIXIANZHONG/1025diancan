@@ -17,47 +17,91 @@ Route::get('/', function () {
 
 //设置admin的路由分组
 Route::domain('admin.mt.com')->namespace('Admin')->group(function () {
-    #设置商家分类路由
+    #设置店铺分类路由
     Route::get('/shopcate/index','ShoupCateController@index')->name('shopcate.index');
-    #编辑商家分类
+    #编辑店铺分类
     Route::any('/shopcate/edit/{id}','ShoupCateController@edit')->name('shopcate.edit');
-    #添加商家分类路由
+    #添加店铺分类路由
     Route::any('/shopcate/add','ShoupCateController@add')->name('shopcate.add');
-    #删除商家分类路由
+    #删除店铺分类路由
     Route::get('/shopcate/del/{id}','ShoupCateController@del')->name('shopcate.del');
+
+    #显示所有商家用户信息
+    Route::get('/user/index','UserController@index')->name('admin.user.index');
+
+    #编辑商家用户
+    Route::any('/user/edit/{id}','UserController@edit')->name('admin.user.edit');
+
+    #删除商家用户
+    Route::get('/user/del/{id}','UserController@del')->name('admin.user.del');
+
+    #后台添加商家用户
+    Route::any('/user/add','UserController@add')->name('admin.user.add');
+
+    #重置商家密码
+    Route::any('/user/password/{id}','UserController@password')->name('admin.user.password');
+
+    #添加管理员
+    Route::any('/admin/add','AdminController@add')->name('admin.add');
+
+    #显示所有管理员
+    Route::any('/admin/index','AdminController@index')->name('admin.index');
+    #编辑管理员
+    Route::any('/admin/edit/{id}','AdminController@edit')->name('admin.edit');
+    #删除管理员
+    Route::any('/admin/del/{id}','AdminController@del')->name('admin.del');
+    #重置管理员密码
+    Route::any('/admin/password/{id}','AdminController@password')->name('admin.password');
+
+    #管理员登录
+    Route::any('/admin/login','AdminController@login')->name('admin.login');
+
+    #管理员注销
+    Route::get('/admin/logout','AdminController@logout')->name('admin.logout');
+
+    #店铺列表
+    Route::get('/shop/index','ShopController@index')->name('admin.shop.index');
+
+    #店铺添加
+    Route::any('/shop/add','ShopController@add')->name('admin.shop.add');
+
+    #店铺删除
+    Route::get('/shop/del/{id}','ShopController@del')->name('admin.shop.del');
+
+    #店铺修改
+    Route::any('/shop/edit/{id}','ShopController@edit')->name('admin.shop.edit');
+
+    #店铺审核
+    Route::any('/shop/status/{id}','ShopController@status')->name('admin.shop.status');
+
+    #店铺禁用
+    Route::any('/shop/jingyong/{id}','ShopController@jingyong')->name('admin.shop.jingyong');
+    #店铺取消禁用
+    Route::any('/shop/quxiao/{id}','ShopController@quxiao')->name('admin.shop.quxiao');
 
 });
 
 //设置shop的路由分组
 Route::domain('shop.mt.com')->namespace('Shop')->group(function () {
-
-    #设置商家显示页面首页
-    Route::get('/user/index','UserController@index')->name('user.index');
-    #设置商家添加用户
+    #设置商家后台首页
+    Route::get('/user/indexs','UserController@indexs')->name('user.indexs');
+    #商家注册
     Route::any('/user/add','UserController@add')->name('user.add');
-    #设置商家编辑
+    #编辑商家用户资料
     Route::any('/user/edit/{id}','UserController@edit')->name('user.edit');
-    #设置商家删除
-    Route::get('/user/del/{id}','UserController@del')->name('user.del');
-    #设置商家登录
-    Route::any('/user/login','UserController@login')->name('user.login');
-    #设置注销
-    Route::any('/user/logout','UserController@logout')->name('user.logout');
 
+    #商家登录
+    Route::any('/user/login','UserController@login')->name('user.login');
+    #商家注销
+    Route::any('/user/logout','UserController@logout')->name('user.logout');
 
     #商家添加商铺
     Route::any('/shop/addone/{id}','ShopController@addone')->name('shop.addone');
-    #后台添加商铺
-    Route::any('/shop/add/','ShopController@add')->name('shop.add');
     #商家显示店铺
     Route::any('/shop/indexone/{id}','ShopController@indexone')->name('shop.indexone');
-    #后台显示店铺
-    Route::any('/shop/index','ShopController@index')->name('shop.index');
-    #后台编辑商铺
-    Route::any('/shop/edit/{id}','ShopController@edit')->name('shop.edit');
-    #商家编辑商铺
-    Route::any('/shop/editone/{id}','ShopController@editone')->name('shop.editone');
-    Route::get('/shop/del/{id}','ShopController@del/{id}')->name('shop.del/{id}');
+
+
+
 
 });
 

@@ -9,15 +9,15 @@ use Illuminate\Support\Facades\Auth;
 
 class UserController extends BaseController
 {
-    //显示所用用户
-    public function index(){
 
-        //得到所有数据
-       $users= User::all();
-       //显示视图
-        return view('shop.user.index',compact('users'));
+
+    //显示商家后台首页
+    public function indexs(){
+        //显示视图
+        return view('shop.user.index1');
     }
-    //添加用户
+
+    //用户注册
     public function add(Request $request){
 
         //post提交
@@ -47,7 +47,7 @@ class UserController extends BaseController
                 //提示
                 session()->flash('success','注册成功');
                 //跳转
-                return redirect()->route('user.index');
+                return redirect()->route('user.login');
             }
         }
         //显示视图
@@ -93,26 +93,14 @@ class UserController extends BaseController
                 //提示
                 session()->flash("danger","编辑成功");
                 //跳转视图
-                return redirect()->route('user.index');
+                return redirect()->route('user.indexs');
 
             }
         }
         //显示视图
         return view('shop.user.edit',compact('user'));
     }
-    //删除用户
-    public function del($id){
-        $row =User::find($id);
-        $photo = $row->photo;
-        if ($row->delete()) {
-            //删除图片
-            @unlink($photo);
-        }
-        //提示
-        session()->flash("danger","删除成功");
-        //跳转视图
-        return redirect()->route('user.index');
-    }
+
 
     //商家登录
     public function login(Request $request){
@@ -128,7 +116,7 @@ class UserController extends BaseController
 
             //验证密码是否正确
             if(Auth::attempt($data,$request->has('remember'))){
-                return redirect()->route('user.index')->with('success','登录成功');
+                return redirect()->route('user.indexs')->with('success','登录成功');
             }else{
                 return redirect()->back()->withInput()->with("danger","账号密码错误");
             }

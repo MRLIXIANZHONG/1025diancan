@@ -19,13 +19,13 @@
 </head>
 <body>
 {{--引入页头--}}
-@include("layouts.user._header")
+@include("layouts.admin._header")
 
 <div class="container container-fluid">
     {{--错误提示--}}
-@include("layouts.user._error")
+@include("layouts.admin._error")
     {{--操作提示--}}
-    @include("layouts.user._msg")
+    @include("layouts.admin._msg")
     {{--定一个内容标记--}}
     @yield("content")
 </div>

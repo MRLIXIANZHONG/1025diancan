@@ -1,11 +1,11 @@
 {{--继承主模块--}}
-@extends("layouts.shop.main")
+@extends("layouts.admin.main")
 {{--添加标记--}}
-@section("title","管理员管理")
+@section("title","分类列表")
 
 
 @section("content")
-<a href="{{route('shopcate.add')}}" class="btn btn-info">添加</a>
+
 <table class="table">
 
     <tr>

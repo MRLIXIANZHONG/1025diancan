@@ -1,7 +1,7 @@
 {{--继承主模块--}}
-@extends("layouts.shop.main")
+@extends("layouts.admin.main")
 {{--添加标记--}}
-@section("title","编辑管理员")
+@section("title","编辑分类")
 @section("content")
     <table class="table">
         <form action="" method="post" enctype="multipart/form-data">

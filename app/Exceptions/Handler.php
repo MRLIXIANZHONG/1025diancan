@@ -3,7 +3,11 @@
 namespace App\Exceptions;
 
 use Exception;
+use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+//use MongoDB\Driver\Exception\AuthenticationException;
+
+
 
 class Handler extends ExceptionHandler
 {
@@ -50,4 +54,19 @@ class Handler extends ExceptionHandler
     {
         return parent::render($request, $exception);
     }
+    protected function unauthenticated($request, AuthenticationException $exception)
+    {
+
+        //return $request->expectsJson()
+        //            ? response()->json(['message' => $exception->getMessage()], 401)
+        //            : redirect()->guest(route('login'));
+
+        if ($request->expectsJson()) {
+            return response()->json(['message' => $exception->getMessage()], 401);
+        } else {
+            session()->flash("danger","没有权限,请登录");
+            return in_array('admin', $exception->guards()) ? redirect()->guest(route('admin.login')) : redirect()->guest(route('user.login'));
+        }
+    }
+
 }

@@ -1,7 +1,7 @@
 {{--继承主模块--}}
 @extends("layouts.shop.main")
 {{--添加标记--}}
-@section("title","管理员管理")
+@section("title","店铺管理")
 
 
 @section("content")
@@ -20,32 +20,34 @@
         <td>优惠信息</td>
         <td>操作</td>
     </tr>
-
+        @foreach($ones as $one)
         <tr>
-            <td>{{$one[0]->id}}</td>
-            <td>{{$one[0]->shopcate->name}}</td>
-            <td>{{$one[0]->shop_name}}</td>
+            <td>{{$one->id}}</td>
+            <td>{{$one->shopcate->name}}</td>
+            <td>{{$one->shop_name}}</td>
             <td>
-                <img src="/{{$one[0]->shop_img}}" width="100">
+                <img src="/{{$one->shop_img}}" width="100">
             </td>
-            <td>{{$one[0]->shop_rating}}</td>
-            <td>{{$one[0]->start_send}}</td>
-            <td>{{$one[0]->send_cost}}</td>
-            <td>{{$one[0]->notice}}</td>
-            <td>{{$one[0]->discount}}</td>
+            <td>{{$one->shop_rating}}</td>
+            <td>{{$one->start_send}}</td>
+            <td>{{$one->send_cost}}</td>
+            <td>{{$one->notice}}</td>
+            <td>{{$one->discount}}</td>
 
             <td>
-                <a href="{{route('shop.editone',$one[0]->id)}}" class="btn btn-success">编辑</a>
+                <a href="{{route('shop.edit',$one->id)}}" class="btn btn-success">编辑</a>
             </td>
 
         </tr>
+
+        @endforeach
 
 
 
 </table>
 {{--分页--}}
 <div class="pull-right">
-    {{--{{$one[0]s->links()}}--}}
+    {{--{{$ones->links()}}--}}
 </div>
 
     @endsection

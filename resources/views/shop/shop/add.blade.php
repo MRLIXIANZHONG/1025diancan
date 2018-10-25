@@ -1,7 +1,7 @@
 {{--继承主模块--}}
 @extends("layouts.shop.main")
 {{--添加标记--}}
-@section("title","添加管理员")
+@section("title","添加店铺")
 @section("content")
 
     <table class="table">

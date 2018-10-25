@@ -1,8 +1,6 @@
-{{--继承主模块--}}
-@extends("layouts.shop.main")
-{{--添加标记--}}
-@section("title","添加管理员")
-@section("content")
+@extends("layouts.shop.login")
+@section("title","注册")
+@section("form")
 
     <table class="table">
         <form action="" method="post" enctype="multipart/form-data">
@@ -50,7 +48,8 @@
 
         <tr>
             <td colspan="2">
-                <input type="submit" value="提交" class="btn btn-info">
+                <input type="submit" value="注册" class="btn btn-info">
+                <a href="{{route("user.login")}}" class=" btn btn-info pull-right">已有账号</a>
             </td>
         </tr>
 
