@@ -26,4 +26,9 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    //跟店铺建立一对一关系
+    public function shop(){
+        return $this->hasOne(Shop::class,'user_id');
+    }
 }

@@ -35,7 +35,7 @@
             <td>{{$one->discount}}</td>
 
             <td>
-                <a href="{{route('shop.edit',$one->id)}}" class="btn btn-success">编辑</a>
+                <a href="{{route('shop.editone',$one->id)}}" class="btn btn-success">编辑</a>
             </td>
 
         </tr>

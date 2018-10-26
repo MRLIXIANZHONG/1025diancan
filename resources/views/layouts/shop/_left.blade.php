@@ -21,14 +21,27 @@
             <li><a href="{{route('shop.indexone',\Illuminate\Support\Facades\Auth::user()->id)}}"><i class="fa fa-book"></i> <span>我的店铺</span></a></li>
             <li class="treeview">
                 <a href="#">
-                    <i class="fa fa-dashboard"></i> <span>我的店铺</span>
+                    <i class="fa fa-dashboard"></i> <span>菜品分类</span>
                     <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="/shop/index.html"><i class="fa fa-circle-o"></i>1111</a></li>
-                    <li><a href="/shop/index2.html"><i class="fa fa-circle-o"></i> Dashboard v2</a></li>
+                    <li><a href="{{route('menucate.add')}}"><i class="fa fa-circle-o"></i>添加分类</a></li>
+                    <li><a href="{{route('menucate.index')}}"><i class="fa fa-circle-o"></i> 分类列表</a></li>
+                </ul>
+            </li>
+
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-dashboard"></i> <span>菜品管理</span>
+                    <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="{{route('menu.add')}}"><i class="fa fa-circle-o"></i>添加菜品</a></li>
+                    <li><a href="{{route('menu.index')}}"><i class="fa fa-circle-o"></i> 菜品列表</a></li>
                 </ul>
             </li>
 

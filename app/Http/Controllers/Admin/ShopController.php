@@ -12,18 +12,18 @@ class ShopController extends BaseController
 {
     //显示全部店铺信息
     public function index(){
-        $shops = Shop::paginate(10);
+        $shops = Shop::orderBy('status','asc')->paginate(10);
         //显示视图
         return view('admin.shop.index',compact('shops'));
     }
 
     //后台添加店铺
-    public function add(Request $request)
+    public function add(Request $request,$id)
     {
         //得到所有店铺分类信息
         $shopcates = ShoupCategory::all();
-        //得到所有商家信息
-        $users = User::all();
+//        //得到所有商家信息
+//        $users = User::all();
         //post提交
         if ($request->isMethod('post')) {
 
@@ -38,18 +38,20 @@ class ShopController extends BaseController
             ]);
             //接受数据
             $data = $request->post();
+            $data['user_id']=$id;
+            $data['status']=1;
             //接受图片
             $data['shop_img'] = $request->file('shop_img')->store('shop/shop_img', 'image');
             //提交数据
             if (Shop::create($data)) {
                 //提示
-                session()->flash('success', '操作完成，等待审核');
+                session()->flash('success', '添加成功');
                 return redirect()->route('admin.user.index');
             }
 
         }
         //显示视图
-        return view('admin.shop.adds', compact('shopcates','users'));
+        return view('admin.shop.adds', compact('shopcates'));
     }
 
     //后台修改店铺

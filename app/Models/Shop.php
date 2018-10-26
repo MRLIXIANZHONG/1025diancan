@@ -18,4 +18,9 @@ class Shop extends Model
 
         return $this->belongsTo(ShoupCategory::class,'shop_category_id');
     }
+    //建立商家一对一关系
+    public function user(){
+        return $this->belongsTo(User::class,'user_id');
+    }
+
 }

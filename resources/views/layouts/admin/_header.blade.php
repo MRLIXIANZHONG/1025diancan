@@ -17,7 +17,7 @@
             <ul class="nav navbar-nav">
                 {{--<li class="active"><a href="">会员管理 <span class="sr-only">(current)</span></a></li>--}}
                 {{--<li class="active"><a href="">管理员管理 <span class="sr-only">(current)</span></a></li>--}}
-                {{--<li class="active"><a href="">套餐管理 <span class="sr-only">(current)</span></a></li>--}}
+                <li class="active"><a href="{{route('admin.shop.index')}}">店铺列表 <span class="sr-only">(current)</span></a></li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">店铺分类管理 <span class="caret"></span></a>
                     <ul class="dropdown-menu">
@@ -26,13 +26,13 @@
                     </ul>
                 </li>
 
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">店铺管理 <span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="{{route('admin.shop.add')}}">添加店铺</a></li>
-                        <li><a href="{{route('admin.shop.index')}}">店铺列表</a></li>
-                    </ul>
-                </li>
+                {{--<li class="dropdown">--}}
+                    {{--<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">店铺管理 <span class="caret"></span></a>--}}
+                    {{--<ul class="dropdown-menu">--}}
+                        {{--<li><a href="#">添加店铺</a></li>--}}
+                        {{--<li><a href="{{route('admin.shop.index')}}">店铺列表</a></li>--}}
+                    {{--</ul>--}}
+                {{--</li>--}}
 
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">商家管理 <span class="caret"></span></a>

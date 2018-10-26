@@ -24,17 +24,17 @@
                 </td>
             </tr>
 
-            <tr>
-                <td>所属商家:</td>
-                <td>
-                    <select name="user_id" class="form-control" >
-                        @foreach($users as $user)
-                            <option value="{{$user->id}}">{{$user->name}}</option>
-                        @endforeach
+            {{--<tr>--}}
+                {{--<td>所属商家:</td>--}}
+                {{--<td>--}}
+                    {{--<select name="user_id" class="form-control" >--}}
+                        {{--@foreach($users as $user)--}}
+                            {{--<option value="{{$user->id}}">{{$user->name}}</option>--}}
+                        {{--@endforeach--}}
 
-                    </select>
-                </td>
-            </tr>
+                    {{--</select>--}}
+                {{--</td>--}}
+            {{--</tr>--}}
 
             <tr>
                 <td>起送金额:</td>

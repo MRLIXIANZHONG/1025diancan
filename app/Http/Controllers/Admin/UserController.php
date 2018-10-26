@@ -15,6 +15,7 @@ class UserController extends BaseController
 
         //得到所有数据
         $users= User::paginate(6);
+       // dd($users[2]->shop->shop_name);
         //显示视图
         return view('admin.user.index',compact('users'));
     }

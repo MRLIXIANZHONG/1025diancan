@@ -6,7 +6,7 @@
 
 @section("content")
 
-<table class="table">
+<table class="table table-bordered table-hover">
 
     <tr>
         <td>id</td>
@@ -14,8 +14,9 @@
         <td>店名</td>
         <td>店铺图片</td>
         <td>评分</td>
-        <td>起送金额</td>
-        <td>配送费</td>
+        <td>所属商家</td>
+        {{--<td>起送金额</td>--}}
+        {{--<td>配送费</td>--}}
         <td>店公告</td>
         <td>优惠信息</td>
         <td>操作</td>
@@ -29,8 +30,10 @@
                 <img src="/{{$shop->shop_img}}" width="100">
             </td>
             <td>{{$shop->shop_rating}}</td>
-            <td>{{$shop->start_send}}</td>
-            <td>{{$shop->send_cost}}</td>
+            <td>{{$shop->user->name ? $shop->user->name : null}}</td>
+
+            {{--<td>{{$shop->start_send}}</td>--}}
+            {{--<td>{{$shop->send_cost}}</td>--}}
             <td>{{$shop->notice}}</td>
             <td>{{$shop->discount}}</td>
 

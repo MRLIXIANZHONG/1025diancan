@@ -55,7 +55,7 @@ class ShopController extends BaseController
             if(Shop::create($data)){
                 //提示
                 session()->flash('success','操作完成，等待审核');
-                return redirect()->route('user.indexs');
+                return redirect()->route('user.login');
             }
         }
         //显示视图

@@ -112,10 +112,22 @@ class UserController extends BaseController
                 'name'=>'required',
                 'password'=>'required'
             ]);
-            //接s收数据
-
             //验证密码是否正确
-            if(Auth::attempt($data,$request->has('remember'))){
+            if(Auth::attempt($data)){
+                //登录成功后判断是否有商铺
+                $user =Auth::user();
+                $shop = $user->shop;
+                if(!$shop){
+                    return redirect()->route('shop.addone')->with('success','你还没有商铺，请添加商铺');
+                }
+                switch ($shop->status){
+                    case 0:
+                    return back()->with('danger','店铺未审核');
+                    break;
+                    case -1;
+                    return back()->with('danger','店铺被禁用');
+                    break;
+                }
                 return redirect()->route('user.indexs')->with('success','登录成功');
             }else{
                 return redirect()->back()->withInput()->with("danger","账号密码错误");

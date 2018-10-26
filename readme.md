@@ -1,58 +1,176 @@
-<p align="center"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"></p>
+# 点餐系统
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/d/total.svg" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/v/stable.svg" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
-</p>
+## 项目介绍
 
-## About Laravel
+整个系统分为三个不同的网站，分别是 
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as:
+- 平台：网站管理者 
+- 商户：入住平台的餐馆 
+- 用户：订餐的用户
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Day01
 
-Laravel is accessible, yet powerful, providing tools needed for large, robust applications.
+### 开发任务
 
-## Learning Laravel
+#### 平台端 
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of any modern web application framework, making it a breeze to get started learning the framework.
+- 商家分类管理 
+- 商家管理 
+- 商家审核
 
-If you're not in the mood to read, [Laracasts](https://laracasts.com) contains over 1100 video tutorials on a range of topics including Laravel, modern PHP, unit testing, JavaScript, and more. Boost the skill level of yourself and your entire team by digging into our comprehensive video library.
+#### 商户端 
 
-## Laravel Sponsors
+- 商家注册
 
-We would like to extend our thanks to the following sponsors for helping fund on-going Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell):
+#### 要求 
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[British Software Development](https://www.britishsoftware.co)**
-- [Fragrantica](https://www.fragrantica.com)
-- [SOFTonSOFA](https://softonsofa.com/)
-- [User10](https://user10.com)
-- [Soumettre.fr](https://soumettre.fr/)
-- [CodeBrisk](https://codebrisk.com)
-- [1Forge](https://1forge.com)
-- [TECPRESSO](https://tecpresso.co.jp/)
-- [Pulse Storm](http://www.pulsestorm.net/)
-- [Runtime Converter](http://runtimeconverter.com/)
-- [WebL'Agence](https://weblagence.com/)
+- 商家注册时，同步填写商家信息，商家账号和密码 
+- 商家注册后，需要平台审核通过，账号才能使用 
+- 平台可以直接添加商家信息和账户，默认已审核通过
 
-## Contributing
+## 步骤
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+1.下载laravel到项目目录
 
-## Security Vulnerabilities
+2.在项目public目录下创建虚拟主机 绑定三个域名：
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+shop.mt.com  商家后台
 
-## License
+admin.mt.com 管理大后台
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+user.mt.com 用户后台
+
+3.把laravel扩展装上
+
+4.建立数据库 mt
+
+5.数据迁移
+
+6.设置三个平台：前端    商家后台   大后台
+
+7.设置视图分类：前端    商家后台   大后台
+
+8.设置路由：前端    商家后台   大后台
+
+9.项目开始
+
+## day_1
+
+### 商家后台
+
+#### 商家用户
+
+1.编辑个人资料
+
+2.登录
+
+3.注销
+
+4.修改密码
+
+#### 商铺
+
+1.添加商铺
+
+1.2有商铺的不能添加
+
+2.编辑商铺
+
+3.自己商铺列表
+
+4.没有通过审核的不能登录后台
+
+## day_2
+
+### 大平台
+
+#### 商家分类管理
+
+1.添加分类
+
+2.删除分类
+
+3.显示分类
+
+4.编辑分类
+
+#### 商家用户管理
+
+1.后台添加商户
+
+2.后台编辑商户
+
+​	2.1密码重置
+
+​	2.2审核
+
+3.后台显示所有商户
+
+4.后台删除商户
+
+​	4.1删除商户会一同删除商铺
+
+#### 管理员账户管理
+
+1.添加管理员
+
+2.编辑管理员
+
+​	2.1密码重置
+
+3.删除管理员
+
+4.显示管理员列表
+
+5.管理员登录
+
+6.管理员注销
+
+#### 商铺管理
+
+1.添加商铺
+
+2.编辑商铺
+
+​	2.1审核
+
+​	2.2信息修改
+
+3.删除商铺
+
+4.显示所有商铺
+
+## day_3
+
+### 商家后台
+
+#### 菜品分类
+
+1. 一个商户只能有且仅有一个默认菜品分类 
+2. 只能删除空菜品分类
+3. 必须登录才能管理商户后台
+4. 按菜品分类显示该分类下的菜品列表
+5. 根据条件（按菜品名称和价格区间）搜索菜品
+
+#### 菜品
+
+1.添加菜品
+
+2.编辑菜品
+
+3.删除菜品
+
+4.查看菜品
+
+5.上架/下架
+
+
+
+
+
+
+
+
+
+
+

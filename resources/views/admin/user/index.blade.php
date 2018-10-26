@@ -12,6 +12,7 @@
         <td>id</td>
         <td>用户</td>
         <td>头像</td>
+        <td>店铺</td>
         <td>email</td>
         <td>tel</td>
 
@@ -24,6 +25,11 @@
             <td>
                 <img src="/{{$user->photo}}" width="100">
             </td>
+            <td>
+                @if($user->shop)
+                    {{$user->shop->shop_name}}
+                 @endif
+            </td>
             <td>{{$user->email}}</td>
             <td>{{$user->tel}}</td>
 
@@ -31,7 +37,9 @@
                 <a href="{{route('admin.user.password',$user->id)}}" class="btn btn-success">重置密码</a>
                 <a href="{{route('admin.user.edit',$user->id)}}" class="btn btn-success">编辑</a>
                 <a href="{{route('admin.user.del',$user->id)}}" class="btn btn-danger">删除</a>
-
+                @if(!$user->shop)
+                <a href="{{route('admin.shop.add',$user->id)}}" class="btn btn-warning">添加店铺</a>
+                @endif
             </td>
 
         </tr>

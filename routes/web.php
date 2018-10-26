@@ -63,7 +63,7 @@ Route::domain('admin.mt.com')->namespace('Admin')->group(function () {
     Route::get('/shop/index','ShopController@index')->name('admin.shop.index');
 
     #店铺添加
-    Route::any('/shop/add','ShopController@add')->name('admin.shop.add');
+    Route::any('/shop/add/{id}','ShopController@add')->name('admin.shop.add');
 
     #店铺删除
     Route::get('/shop/del/{id}','ShopController@del')->name('admin.shop.del');
@@ -99,6 +99,36 @@ Route::domain('shop.mt.com')->namespace('Shop')->group(function () {
     Route::any('/shop/addone/{id}','ShopController@addone')->name('shop.addone');
     #商家显示店铺
     Route::any('/shop/indexone/{id}','ShopController@indexone')->name('shop.indexone');
+
+    #商家编辑店铺
+    Route::any('/shop/edit/{id}','ShopController@edit')->name('shop.editone');
+
+    #菜品
+    #添加菜品
+    Route::any('/menu/add','MenuController@add')->name('menu.add');
+    #菜品列表
+    Route::any('/menu/index','MenuController@index')->name('menu.index');
+    #编辑菜品
+    Route::any('/menu/edit/{id}','MenuController@edit')->name('menu.edit');
+    #删除菜品
+    Route::any('/menu/del/{id}','MenuController@del')->name('menu.del');
+    #菜品下架
+    Route::any('/menu/xiajia/{id}','MenuController@xiajia')->name('menu.xiajia');
+    #菜品上架
+    Route::any('/menu/shangjia/{id}','MenuController@shangjia')->name('menu.shangjia');
+
+
+    #菜品分类
+    #添加菜品分类
+    Route::any('/menucate/add','MenuCategoryController@add')->name('menucate.add');
+    #菜品分类列表
+    Route::any('/menucate/index','MenuCategoryController@index')->name('menucate.index');
+    #编辑菜品分类
+    Route::any('/menucate/edit/{id}','MenuCategoryController@edit')->name('menucate.edit');
+    #删除菜品分类
+    Route::any('/menucate/del/{id}','MenuCategoryController@del')->name('menucate.del');
+    #设置默认菜品分类
+    Route::any('/menucate/moren/{id}','MenuCategoryController@moren')->name('menucate.moren');
 
 
 
