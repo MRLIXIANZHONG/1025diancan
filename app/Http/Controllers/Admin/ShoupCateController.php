@@ -85,4 +85,19 @@ class ShoupCateController extends BaseController
         //跳转视图
         return redirect()->route('shopcate.index');
     }
+    //上线
+    public function shang($id){
+        $shopcate = ShoupCategory::find($id);
+        $shopcate->status=1;
+        $shopcate->save();
+        return back()->with('success','上线设置成功');
+    }
+    //下线
+    public function xia($id){
+        $shopcate = ShoupCategory::find($id);
+        $shopcate->status=0;
+        $shopcate->save();
+        return back()->with('success','下线设置成功');
+    }
+
 }

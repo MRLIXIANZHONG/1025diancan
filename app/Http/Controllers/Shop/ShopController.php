@@ -64,6 +64,66 @@ class ShopController extends BaseController
     }
 
 
+    //注册成功后，直接添加商铺
+    public function shopadd(Request $request){
+        //得到所有店铺分类信息
+        $shopcates = ShoupCategory::all()->where("status",'1');
+        //post提交
+        if ($request->isMethod('post')){
+//            $user = User::where('name',$request->post('name'))->get();
+//            dd(count($user));
+            //验证数据
+            $this->validate($request,[
+                'name'=>'required',
+                'shop_category_id'=>'required',
+                'shop_name'=>'required',
+                'shop_img'=>'required|image',
+                'start_send'=>'required|numeric|min:1',
+                'send_cost'=>'required|numeric|min:1',
+                'captcha'=>'required|captcha',
+            ]);
+            //通过用户名找到刚才注册的id
+            $user = User::where('name',$request->post('name'))->get();
+
+            if(!count($user)){
+                return back()->with('danger','用户名不存在');
+            }
+           $id=$user[0]->id;
+
+            //由于一个商家只能添加一个店铺，所以，要先查询店铺信息表
+            //查询店铺信息表
+            $shopone = Shop::all()->where('user_id',$id);
+            if(count($shopone)){
+                //提示
+                session()->flash('warning','你已经有商铺了');
+                //跳转
+                return redirect()->route('user.indexs');
+            }
+            //接受数据
+            $data = $request->post();
+            $data['user_id']=$id;
+            //接受图片
+            $data['shop_img']=$request->file('shop_img')->store('shop/shop_img','image');
+            //提交数据
+            if(Shop::create($data)){
+                //提示
+                session()->flash('success','操作完成，等待审核');
+                return redirect()->route('user.login');
+        }
+
+        }
+        //显示视图
+        return view('shop.shop.shopadd',compact('shopcates'));
+
+    }
+
+
+
+
+
+
+
+
 
 
     //商家自己修改店铺

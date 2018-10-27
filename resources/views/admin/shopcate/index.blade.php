@@ -30,6 +30,11 @@
             <td>
                 <a href="{{route('shopcate.edit',$shopcate->id)}}" class="btn btn-success">编辑</a>
                 <a href="{{route('shopcate.del',$shopcate->id)}}" class="btn btn-danger">删除</a>
+                @if($shopcate->status)
+                    <a href="{{route('shopcate.xia',$shopcate->id)}}" class="btn btn-warning">下线</a>
+                @else
+                    <a href="{{route('shopcate.shang',$shopcate->id)}}" class="btn btn-primary">上线</a>
+                 @endif
 
             </td>
 

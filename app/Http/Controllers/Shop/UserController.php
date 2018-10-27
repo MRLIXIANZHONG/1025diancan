@@ -118,7 +118,7 @@ class UserController extends BaseController
                 $user =Auth::user();
                 $shop = $user->shop;
                 if(!$shop){
-                    return redirect()->route('shop.addone')->with('success','你还没有商铺，请添加商铺');
+                    return redirect()->route('shop.shopadd')->with('success','你还没有商铺，请添加商铺');
                 }
                 switch ($shop->status){
                     case 0:
@@ -140,6 +140,7 @@ class UserController extends BaseController
     //注销
     public function logout(Request $request){
         Auth::logout();
+        //注册成功后添加账户
         return redirect()->route("user.login");
     }
 

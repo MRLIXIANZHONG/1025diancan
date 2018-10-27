@@ -1,5 +1,5 @@
 {{--继承主模块--}}
-@extends("layouts.shop.main")
+@extends("layouts.shop.zhuche")
 {{--添加标记--}}
 @section("title","添加店铺")
 @section("content")
@@ -7,6 +7,11 @@
     <table class="table">
         <form action="" method="post" enctype="multipart/form-data">
             {{ csrf_field() }}
+            <tr>
+                <td>用户名:</td>
+                <td><input type="text" name="name" class="form-control" placeholder="请输入注册时的用户名" ></td>
+            </tr>
+
         <tr>
             <td>店铺名称:</td>
             <td><input type="text" name="shop_name" class="form-control" value="{{old('shop_name')}}"></td>

@@ -26,6 +26,12 @@ Route::domain('admin.mt.com')->namespace('Admin')->group(function () {
     #删除店铺分类路由
     Route::get('/shopcate/del/{id}','ShoupCateController@del')->name('shopcate.del');
 
+    #店铺分类上线
+    Route::get('/shopcate/shang/{id}','ShoupCateController@shang')->name('shopcate.shang');
+    #店铺分类下线
+    Route::get('/shopcate/xia/{id}','ShoupCateController@xia')->name('shopcate.xia');
+
+
     #显示所有商家用户信息
     Route::get('/user/index','UserController@index')->name('admin.user.index');
 
@@ -97,6 +103,10 @@ Route::domain('shop.mt.com')->namespace('Shop')->group(function () {
 
     #商家添加商铺
     Route::any('/shop/addone/{id}','ShopController@addone')->name('shop.addone');
+
+    #商家注册后添加商铺
+    Route::any('/shop/shopadd','ShopController@shopadd')->name('shop.shopadd');
+
     #商家显示店铺
     Route::any('/shop/indexone/{id}','ShopController@indexone')->name('shop.indexone');
 

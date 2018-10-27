@@ -18,6 +18,7 @@
             <li><a href="{{route('shop.addone',\Illuminate\Support\Facades\Auth::user()->id)}}"><i class="fa fa-book"></i> <span>申请店铺</span></a></li>
             <li class="treeview">
 
+
             <li><a href="{{route('shop.indexone',\Illuminate\Support\Facades\Auth::user()->id)}}"><i class="fa fa-book"></i> <span>我的店铺</span></a></li>
             <li class="treeview">
                 <a href="#">
