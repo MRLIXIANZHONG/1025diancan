@@ -32,8 +32,22 @@
 
             <tr>
                 <td>头像:</td>
-                <td><input type="file" name="photo" class="form-group-sm" ></td>
+                <td>
+                    <div class="form-group">
+                        <label>图像</label>
+
+                        <input type="hidden" name="photo" id="shop_img">
+                        <!--dom结构部分-->
+                        <div id="uploader-demo">
+                            <!--用来存放item-->
+                            <div id="fileList" class="uploader-list"></div>
+                            <div id="filePicker">选择图片</div>
+                        </div>
+
+                    </div>
+                </td>
             </tr>
+
 
             <tr>
                 <td>验证码:</td>

@@ -22,7 +22,7 @@
             <td>{{$shopcate->id}}</td>
             <td>{{$shopcate->name}}</td>
             <td>
-                <img src="/{{$shopcate->img}}" width="100">
+                <img src="{{$shopcate->img}}?x-oss-process=image/resize,m_fill,w_80,h_80" >
             </td>
             <td>{{$shopcate->status ? '上线' : '下线'}}</td>
 

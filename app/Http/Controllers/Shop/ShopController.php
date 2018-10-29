@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class ShopController extends BaseController
 {
@@ -41,7 +42,7 @@ class ShopController extends BaseController
             $this->validate($request,[
                 'shop_category_id'=>'required',
                 'shop_name'=>'required',
-                'shop_img'=>'required|image',
+                'shop_img'=>'required',
                 'start_send'=>'required|numeric|min:1',
                 'send_cost'=>'required|numeric|min:1',
                 'captcha'=>'required|captcha',
@@ -49,8 +50,6 @@ class ShopController extends BaseController
             //接受数据
             $data = $request->post();
             $data['user_id']=$id;
-            //接受图片
-            $data['shop_img']=$request->file('shop_img')->store('shop/shop_img','image');
             //提交数据
             if(Shop::create($data)){
                 //提示
@@ -77,7 +76,7 @@ class ShopController extends BaseController
                 'name'=>'required',
                 'shop_category_id'=>'required',
                 'shop_name'=>'required',
-                'shop_img'=>'required|image',
+                'shop_img'=>'required',
                 'start_send'=>'required|numeric|min:1',
                 'send_cost'=>'required|numeric|min:1',
                 'captcha'=>'required|captcha',
@@ -102,8 +101,6 @@ class ShopController extends BaseController
             //接受数据
             $data = $request->post();
             $data['user_id']=$id;
-            //接受图片
-            $data['shop_img']=$request->file('shop_img')->store('shop/shop_img','image');
             //提交数据
             if(Shop::create($data)){
                 //提示
@@ -146,11 +143,9 @@ class ShopController extends BaseController
             ]);
             //接受数据
             $data = $request->post();
-            //判断是否上传了图片
-            if($request->file('shop_img')!=null){
-                $data['shop_img']=$request->file('shop_img')->store('shop/shop_img','image');
-                //删除原图片
-                @unlink($request->post('oldp'));
+            //如果没有上传图片就不修改图片
+            if ($data['shop_img']==null){
+                unset($data['shop_img']);
             }
             //提交数据
             if($one->update($data)){
@@ -166,6 +161,29 @@ class ShopController extends BaseController
     }
 
 
+
+    //upload上传图片
+    public function upload(Request $request){
+
+        //处理上传
+
+        // dd($request->file("file"));
+
+        $file=$request->file("file");
+        if ($file){
+            //上传
+            $url=$file->store("shop");
+            //得到真实地址  加 http的址
+            $url=Storage::url($url);
+            //这把必须用数组的方式保存图片路径，然后返回，前端才可以得到对应的图片路径
+            //这把用什么值，那边就接受什么值
+            $data['url']=$url;
+
+            return $data;
+
+        }
+
+    }
 
 
 }

@@ -53,7 +53,7 @@ class UserController extends BaseController
                 'name' => 'required|unique:users',
                 'password' => 'required|confirmed|min:6|max:12',
                 'email' => 'email',
-                'photo' => 'required|image',
+                'photo' => 'required',
                 'captcha' => 'required|captcha',
                 'tel' => 'regex:/^1[34578]\d{9}$/'
             ], [
@@ -64,9 +64,6 @@ class UserController extends BaseController
 
             //密码加密
             $data['password'] = bcrypt($data['password']);
-            //接受图片
-            $data['photo'] = $request->file('photo')->store('shop/user', 'image');
-
             //添加数据
             if (User::create($data)) {
                 //提示
@@ -87,8 +84,7 @@ class UserController extends BaseController
 
             //验证数据
             $this->validate($request,[
-                'name'=>'required|unique:admins',
-                'photo'=>'image',
+                'name'=>'required|unique:users',
                 'tel'=>'regex:/^1[34578]\d{9}$/',
                 'email'=>'email',
 
@@ -104,11 +100,9 @@ class UserController extends BaseController
                 //密码加密
                 $data['password']=bcrypt($data['password']);
             }
-            //判断是否上传了图片
-            if($request->file('photo')!=null){
-                $data['photo']=$request->file('photo')->store('shop/user','image');
-                //删除原图片
-                @unlink($request->post('oldp'));
+            //没有上传图片，就不更改图片
+            if ($data['photo']==null){
+                unset($data['photo']);
             }
             //如果没有输入密码就不更改密码
             if($data['password']==null){

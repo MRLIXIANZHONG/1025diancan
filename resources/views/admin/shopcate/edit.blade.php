@@ -32,16 +32,24 @@
                 </td>
             </tr>
 
+        <tr>
+            <td>图片</td>
+            <td>
+                <img src="{{$shopcate->img}}?x-oss-process=image/resize,m_fill,w_80,h_80">
+                <div class="form-group">
+                    <label>图像</label>
 
-            <tr>
-                <td>头像:</td>
-                <td>
-                    <input type="file" name="img" class="form-group-sm" >
-                    <img src="/{{$shopcate->img}}" width="100">
-                    <input type="hidden" name="oldp" value="{{$shopcate->img}}">
-                </td>
+                    <input type="hidden" name="img" value="" id="shop_img">
+                    <!--dom结构部分-->
+                    <div id="uploader-demo">
+                        <!--用来存放item-->
+                        <div id="fileList" class="uploader-list"></div>
+                        <div id="filePicker">选择图片</div>
+                    </div>
+
+                </div>
+            </td>
             </tr>
-
 
 
         <tr>

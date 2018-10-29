@@ -27,7 +27,9 @@
             <td>{{$shop->shopcate->name}}</td>
             <td>{{$shop->shop_name}}</td>
             <td>
-                <img src="/{{$shop->shop_img}}" width="100">
+
+                <img src="{{$shop->shop_img}}?x-oss-process=image/resize,m_fill,w_80,h_80">
+
             </td>
             <td>{{$shop->shop_rating}}</td>
             <td>{{$shop->user->name ? $shop->user->name : null}}</td>

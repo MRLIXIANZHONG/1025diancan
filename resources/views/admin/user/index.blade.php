@@ -23,7 +23,7 @@
             <td>{{$user->id}}</td>
             <td>{{$user->name}}</td>
             <td>
-                <img src="/{{$user->photo}}" width="100">
+                <img src="{{$user->photo}}?x-oss-process=image/resize,m_fill,w_80,h_80" >
             </td>
             <td>
                 @if($user->shop)

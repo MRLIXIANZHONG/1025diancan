@@ -12,12 +12,13 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('index');
 });
 
 //设置admin的路由分组
 Route::domain('admin.mt.com')->namespace('Admin')->group(function () {
-    #设置店铺分类路由
+
+    //region设置店铺分类路由
     Route::get('/shopcate/index','ShoupCateController@index')->name('shopcate.index');
     #编辑店铺分类
     Route::any('/shopcate/edit/{id}','ShoupCateController@edit')->name('shopcate.edit');
@@ -30,9 +31,9 @@ Route::domain('admin.mt.com')->namespace('Admin')->group(function () {
     Route::get('/shopcate/shang/{id}','ShoupCateController@shang')->name('shopcate.shang');
     #店铺分类下线
     Route::get('/shopcate/xia/{id}','ShoupCateController@xia')->name('shopcate.xia');
+    //endregion
 
-
-    #显示所有商家用户信息
+    //region显示所有商家用户信息
     Route::get('/user/index','UserController@index')->name('admin.user.index');
 
     #编辑商家用户
@@ -44,10 +45,11 @@ Route::domain('admin.mt.com')->namespace('Admin')->group(function () {
     #后台添加商家用户
     Route::any('/user/add','UserController@add')->name('admin.user.add');
 
-    #重置商家密码
+    //重置商家密码
     Route::any('/user/password/{id}','UserController@password')->name('admin.user.password');
+//endregion
 
-    #添加管理员
+    //region添加管理员
     Route::any('/admin/add','AdminController@add')->name('admin.add');
 
     #显示所有管理员
@@ -64,8 +66,9 @@ Route::domain('admin.mt.com')->namespace('Admin')->group(function () {
 
     #管理员注销
     Route::get('/admin/logout','AdminController@logout')->name('admin.logout');
+    //endregion
 
-    #店铺列表
+    //region店铺列表
     Route::get('/shop/index','ShopController@index')->name('admin.shop.index');
 
     #店铺添加
@@ -84,12 +87,31 @@ Route::domain('admin.mt.com')->namespace('Admin')->group(function () {
     Route::any('/shop/jingyong/{id}','ShopController@jingyong')->name('admin.shop.jingyong');
     #店铺取消禁用
     Route::any('/shop/quxiao/{id}','ShopController@quxiao')->name('admin.shop.quxiao');
+    //endregion
+
+    //region活动
+    #添加活动
+    Route::any('/activity/add','ActivityController@add')->name('admin.activity.add');
+    #活动列表
+    Route::get('/activity/index','ActivityController@index')->name('admin.activity.index');
+    #编辑活动
+    Route::any('/activity/edit/{id}','ActivityController@edit')->name('admin.activity.edit');
+    #删除活动
+    Route::any('/activity/del/{id}','ActivityController@del')->name('admin.activity.del');
+    //endregion
+
+    #公共upload添加图片
+    Route::any('/shop/upload','ShopController@upload')->name('admin.shop.upload');
 
 });
 
+
+
+
 //设置shop的路由分组
 Route::domain('shop.mt.com')->namespace('Shop')->group(function () {
-    #设置商家后台首页
+
+    //region设置商家后台首页
     Route::get('/user/indexs','UserController@indexs')->name('user.indexs');
     #商家注册
     Route::any('/user/add','UserController@add')->name('user.add');
@@ -112,8 +134,9 @@ Route::domain('shop.mt.com')->namespace('Shop')->group(function () {
 
     #商家编辑店铺
     Route::any('/shop/edit/{id}','ShopController@edit')->name('shop.editone');
+    //endregion
 
-    #菜品
+    //region菜品
     #添加菜品
     Route::any('/menu/add','MenuController@add')->name('menu.add');
     #菜品列表
@@ -126,9 +149,9 @@ Route::domain('shop.mt.com')->namespace('Shop')->group(function () {
     Route::any('/menu/xiajia/{id}','MenuController@xiajia')->name('menu.xiajia');
     #菜品上架
     Route::any('/menu/shangjia/{id}','MenuController@shangjia')->name('menu.shangjia');
+    //endregion
 
-
-    #菜品分类
+    //region菜品分类
     #添加菜品分类
     Route::any('/menucate/add','MenuCategoryController@add')->name('menucate.add');
     #菜品分类列表
@@ -139,9 +162,13 @@ Route::domain('shop.mt.com')->namespace('Shop')->group(function () {
     Route::any('/menucate/del/{id}','MenuCategoryController@del')->name('menucate.del');
     #设置默认菜品分类
     Route::any('/menucate/moren/{id}','MenuCategoryController@moren')->name('menucate.moren');
+    //endregion
 
+    #显示活动
+    Route::any('/Activity/index','ActivityController@index')->name('shop.activity.index');
 
-
+    #公共upload添加图片
+    Route::any('/shop/upload','ShopController@upload')->name('admin.shop.upload');
 
 });
 

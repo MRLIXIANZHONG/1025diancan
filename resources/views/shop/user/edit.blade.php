@@ -39,14 +39,26 @@
                 </td>
             </tr>
 
+
             <tr>
                 <td>头像:</td>
+
                 <td>
-                    <input type="file" name="photo" class="form-group-sm" >
-                    <img src="/{{$user->photo}}" width="100">
-                    <input type="hidden" name="oldp" value="{{$user->photo}}">
+                    <img src="{{$user->photo}}?x-oss-process=image/resize,m_fill,w_80,h_80" >
+                    <div class="form-group">
+                        <label>图像</label>
+
+                        <input type="hidden" name="photo" id="shop_img">
+                        <!--dom结构部分-->
+                        <div id="uploader-demo">
+                            <!--用来存放item-->
+                            <div id="fileList" class="uploader-list"></div>
+                            <div id="filePicker">选择图片</div>
+                        </div>
+
+                    </div>
                 </td>
-            </tr>
+            <tr>
 
 
 

@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'default' => env('FILESYSTEM_DRIVER', 'local'),
+    'default' => env('FILESYSTEM_DRIVER', 'oss'),
 
     /*
     |--------------------------------------------------------------------------
@@ -47,6 +47,14 @@ return [
             'driver' => 'local',
             'root' => storage_path('app'),
         ],
+        'oss' => [
+            'driver'        => 'oss',
+            'access_id'     => 'LTAI2zMh1fLKargo',//账号
+            'access_key'    => 'Quj1ODS5Kh33f9M57Yjxk2sN2yKKRB',//密钥
+            'bucket'        => 'mt0621',//空间名称
+            'endpoint'      => 'oss-cn-shenzhen.aliyuncs.com', // OSS 外网节点或自定义外部域名
+
+        ],
         'image' => [
             'driver' => 'local',
             'root' => public_path(),//设置public路径
@@ -66,6 +74,7 @@ return [
             'region' => env('AWS_DEFAULT_REGION'),
             'bucket' => env('AWS_BUCKET'),
         ],
+
 
     ],
 

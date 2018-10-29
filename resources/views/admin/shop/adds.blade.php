@@ -43,7 +43,26 @@
 
             <tr>
                 <td>店铺图片:</td>
-                <td><input type="file" name="shop_img" class="form-control" ></td>
+
+                <td>
+                <div class="form-group">
+                    <label>图像</label>
+
+                    <input type="hidden" name="shop_img" value="" id="shop_img">
+                    <!--dom结构部分-->
+                    <div id="uploader-demo">
+                        <!--用来存放item-->
+                        <div id="fileList" class="uploader-list"></div>
+                        <div id="filePicker">选择图片</div>
+                    </div>
+
+
+                </div>
+                </td>
+
+
+
+
             </tr>
 
             <tr>

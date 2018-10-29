@@ -61,13 +61,12 @@ class MenuController extends BaseController
                 'goods_price'=>'required|numeric',
                 'description'=>'required',
                 'tips'=>'required',
-                'goods_img'=>'required|image',
+                'goods_img'=>'required',
             ]);
             //接受数据
             $data = $request->post();
             $data['shop_id']=Auth::user()->shop->id;
-            //接受图片
-            $data['goods_img']=$request->file('goods_img')->store('shop/menu/'.$name,'image');
+
             //添加数据
             if (Menu::create($data)) {
                 //提示
@@ -95,19 +94,15 @@ class MenuController extends BaseController
                 'goods_price'=>'required|numeric',
                 'description'=>'required',
                 'tips'=>'required',
-                'goods_img'=>'image',
             ]);
             //得到当前用户信息
             $name = Auth::user()->name;
             //接受数据
             $data =$request->post();
-            //判断是否修改了图片
-            $img =$request->file('goods_img');
-           if($img!=null){
-               $data['goods_img']=$request->file('goods_img')->store('shop/menu/'.$name,'image');
-               //删除原图片
-               @unlink($request->post('oldp'));
-           }
+          //如果没有上传图片，就不修改图片
+            if ($data['goods_img']==null){
+                unset($data['goods_img']);
+            }
            //编辑数据
             if ($menu->update($data)) {
                 //提示

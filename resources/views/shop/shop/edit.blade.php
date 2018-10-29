@@ -31,12 +31,22 @@
 
             <tr>
                 <td>店铺图片:</td>
-                <td>
-                    <input type="file" name="shop_img" class="form-control" >
-                    <img src="/{{$one->shop_img}}" width="100">
-                </td>
-                <input type="hidden" name="oldp" value="{{$one->shop_img}}">
 
+                <td>
+                    <img src="{{$one->shop_img}}?x-oss-process=image/resize,m_fill,w_80,h_80" >
+                    <div class="form-group">
+                        <label>图像</label>
+
+                        <input type="hidden" name="shop_img" value="" id="shop_img">
+                        <!--dom结构部分-->
+                        <div id="uploader-demo">
+                            <!--用来存放item-->
+                            <div id="fileList" class="uploader-list"></div>
+                            <div id="filePicker">选择图片</div>
+                        </div>
+
+                    </div>
+                </td>
             </tr>
 
             <tr>

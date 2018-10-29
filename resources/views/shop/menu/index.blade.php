@@ -53,7 +53,7 @@
             </td>
             <td>{{$menu->status ? '上架' : '下架'}}</td>
             <td>
-                <img src="/{{$menu->goods_img}}" width="100">
+                <img src="{{$menu->goods_img}}?x-oss-process=image/resize,m_fill,w_80,h_80" >
             </td>
 
 

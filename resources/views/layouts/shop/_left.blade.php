@@ -4,7 +4,7 @@
         <!-- Sidebar user panel -->
         <div class="user-panel">
             <div class="pull-left image">
-                <img src="/{{\Illuminate\Support\Facades\Auth::user()->photo }}" class="img-circle" alt="User Image">
+                <img src="{{\Illuminate\Support\Facades\Auth::user()->photo }}" class="img-circle" alt="User Image">
             </div>
             <div class="pull-left info">
                 <p>{{\Illuminate\Support\Facades\Auth::user()->name}}</p>
@@ -20,6 +20,8 @@
 
 
             <li><a href="{{route('shop.indexone',\Illuminate\Support\Facades\Auth::user()->id)}}"><i class="fa fa-book"></i> <span>我的店铺</span></a></li>
+            <li><a href="{{route('shop.activity.index')}}"><i class="fa fa-book"></i> <span>活动公告</span></a></li>
+
             <li class="treeview">
                 <a href="#">
                     <i class="fa fa-dashboard"></i> <span>菜品分类</span>

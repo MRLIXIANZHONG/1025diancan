@@ -53,9 +53,21 @@
 
             <tr>
                 <td>商品图片:</td>
-                <td><input type="file" name="goods_img">
-                    <img src="/{{$menu->goods_img}}" width="100">
-                    <input type="hidden" name="oldp" value="{{$menu->goods_img}}">
+
+                <td>
+                    <img src="{{$menu->goods_img}}?x-oss-process=image/resize,m_fill,w_80,h_80" >
+                    <div class="form-group">
+                        <label>图像</label>
+
+                        <input type="hidden" name="goods_img" id="shop_img">
+                        <!--dom结构部分-->
+                        <div id="uploader-demo">
+                            <!--用来存放item-->
+                            <div id="fileList" class="uploader-list"></div>
+                            <div id="filePicker">选择图片</div>
+                        </div>
+
+                    </div>
                 </td>
             </tr>
 

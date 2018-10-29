@@ -21,12 +21,10 @@ class ShoupCateController extends BaseController
             //验证数据
             $this->validate($request,[
                'name'=>'required',
-               'img'=>'required|image',
+               'img'=>'required',
             ]);
             //接受数据
             $data = $request->post();
-            //接受图片
-            $data['img']=$request->file('img')->store('admin/shopcate','image');
             //添加数据
             if (ShoupCategory::create($data)) {
                 //提示
@@ -48,15 +46,12 @@ class ShoupCateController extends BaseController
             //验证数据
             $this->validate($request,[
                'name'=>'required',
-               'img'=>'image'
             ]);
             //接收值
             $data = $request->post();
-            //判断是否上传了图片
-            if($request->file('img')!=null){
-                $data['img']=$request->file('img')->store('admin/shopcate','image');
-                //删除原图片
-                @unlink($request->post('oldp'));
+            //如果没有上传图片就不更改图片
+            if ($data['img']==null){
+                unset($data['img']);
             }
             //更改数据
             if ($shopcate->update($data)) {
@@ -64,7 +59,6 @@ class ShoupCateController extends BaseController
                 session()->flash("danger","编辑成功");
                 //跳转视图
                 return redirect()->route('shopcate.index');
-
             }
         }
         //显示视图
@@ -75,11 +69,7 @@ class ShoupCateController extends BaseController
     public function del($id){
 
         $row =ShoupCategory::find($id);
-        $photo = $row->img;
-        if ($row->delete()) {
-            //删除图片
-            @unlink($photo);
-        }
+        $row->delete();
         //提示
         session()->flash("danger","删除成功");
         //跳转视图
@@ -99,5 +89,8 @@ class ShoupCateController extends BaseController
         $shopcate->save();
         return back()->with('success','下线设置成功');
     }
+
+
+
 
 }

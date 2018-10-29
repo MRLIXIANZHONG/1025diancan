@@ -41,14 +41,33 @@
                 <td><input type="text" name="start_send" class="form-control" value="{{$shop->start_send}}"></td>
             </tr>
 
+            {{--<tr>--}}
+                {{--<td>店铺图片:</td>--}}
+                {{--<td>--}}
+                    {{--<input type="file" name="shop_img" class="form-control" >--}}
+                    {{--<img src="/{{$shop->shop_img}}" width="100">--}}
+                    {{--<input type="hidden" name="oldp" value="{{$shop->shop_img}}">--}}
+                {{--</td>--}}
+            {{--</tr>--}}
+
             <tr>
                 <td>店铺图片:</td>
+
                 <td>
-                    <input type="file" name="shop_img" class="form-control" >
-                    <img src="/{{$shop->shop_img}}" width="100">
-                    <input type="hidden" name="oldp" value="{{$shop->shop_img}}">
+                    <div class="form-group">
+                        <label>图像</label>
+
+                        <input type="hidden" name="shop_img" value="" id="shop_img">
+                        <!--dom结构部分-->
+                        <div id="uploader-demo">
+                            <!--用来存放item-->
+                            <div id="fileList" class="uploader-list"></div>
+                            <div id="filePicker">选择图片</div>
+                        </div>
+
+                    </div>
                 </td>
-            </tr>
+
 
             <tr>
                 <td>配送费:</td>
