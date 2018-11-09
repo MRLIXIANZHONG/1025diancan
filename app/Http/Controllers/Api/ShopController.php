@@ -11,10 +11,16 @@ use App\Http\Controllers\Controller;
 class ShopController extends Controller
 {
     //显示接口主页
-    public function index(){
+    public function index(Request $request){
         header("Access-Control-Allow-Origin: *");
-
-        $shops = Shop::all();
+        //接受数据
+        $key = $request->get('keyword');
+        $shops=Shop::orderBy('id');
+        if ($key!=null){
+            $shops = $shops->where('shop_name','like',"%$key%");
+        }
+        $shops=$shops->where('status',1)->get();
+        //$shops = Shop::all();
         //dd($shops->toArray());
         foreach ($shops as $k=>$v){
             $shops[$k]->distance=rand(1000,5000);
@@ -61,12 +67,12 @@ class ShopController extends Controller
             ],
         ];
 
-        //得到当前商品的菜单
+        //得到当前商铺的菜单
         $menucates = MenuCategory::where('shop_id',$id)->get();
         //得到当前菜单下的菜品
         foreach ($menucates as $k=>$v){
 
-            $menucates[$k]->goods_list=$v->menus;
+            $menucates[$k]->goods_list=$v->menus->where('status',1);//判断商品是否下架
 
         }
         $shop->commodity=$menucates;
@@ -77,4 +83,8 @@ class ShopController extends Controller
 
 
     }
+
+
+
+
 }

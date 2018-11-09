@@ -7,11 +7,14 @@ use Illuminate\Auth\Authenticatable;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
+use Spatie\Permission\Models\Role;
 
 class AdminController extends BaseController
 {
     //管理员列表
     public function index(){
+
         //找到所有管理员
         $admins = Admin::paginate(10);
         return view('admin.admin.index',compact('admins'));
@@ -29,15 +32,26 @@ class AdminController extends BaseController
 //           密码加密
             $data['password']=bcrypt($data['password']);
             //添加数据
-            if (Admin::create($data)) {
+            $admin = Admin::create($data);
+
+            //判断是否添加了角色
+            if($request->post('role')){
+                //同步权限
+                //给用户添加角色 同步角色
+                $admin->syncRoles($request->post('role'));
+            }
+
+
                 //提示
                 session()->flash('success','添加成功');
                 //跳转
                 return redirect()->route('admin.index');
-            }
+
         }
+        //得到所有角色
+        $roles = Role::all();
         //显示视图
-        return view('admin.admin.add');
+        return view('admin.admin.add',compact('roles'));
     }
     //编辑管理员
     public function edit(Request $request,$id){
@@ -46,12 +60,27 @@ class AdminController extends BaseController
         if ($request->isMethod('post')){
             //验证
            $data= $this->validate($request,[
-                'name'=>'required',
+                'name'=>[
+                    'required',
+                    Rule::unique('admins')->ignore($admin->id),
+                ],
                 'email'=>'required',
-               'password'=>'required|min:6|max:12|confirmed',
             ]);
-           //密码加密
-            $data['password']=bcrypt($data['password']);
+           //判断是否更改了密码
+           if ($request->post('password')!=null){
+               //验证密码
+               $this->validate($request,[
+                   'password'=>'required|min:6|max:12|confirmed',
+               ]);
+               $data['password']=bcrypt($request->post('password'));
+           }
+            //判断是否添加了角色
+            if ($request->post('role')){
+                //给用户添加角色 同步角色
+                $admin->syncRoles($request->post('role'));
+            }
+
+
             //编辑
             if ($admin->update($data)) {
                 //提示
@@ -61,8 +90,10 @@ class AdminController extends BaseController
             }
 
         }
+        //得到所有角色
+        $roles = Role::all();
         //显示视图
-        return view('admin.admin.edit',compact('admin'));
+        return view('admin.admin.edit',compact('admin','roles'));
 
     }
 
@@ -82,6 +113,9 @@ class AdminController extends BaseController
     public function del($id){
 
         $admin = Admin::find($id);
+        if ($admin->id==1){
+            return back()->with('danger','不能删除管理员');
+        }
         if ($admin->delete()) {
             //提示
             session()->flash('danger','删除成功');
@@ -105,7 +139,7 @@ class AdminController extends BaseController
            //判断数据
             if (Auth::guard('admin')->attempt($data)){
                 //跳转
-                return redirect()->route('admin.index')->with('info','登录成功');
+                return redirect()->route('admin.index1')->with('info','登录成功');
             }else{
                 return back()->with('danger','账号密码错误');
             }
@@ -123,6 +157,12 @@ class AdminController extends BaseController
         session()->flash('info','注销成功');
         //跳转
         return redirect()->route('admin.login');
+    }
+
+    //后台首页
+    public function index1(){
+
+        return view('admin.admin.index1');
     }
 
 }

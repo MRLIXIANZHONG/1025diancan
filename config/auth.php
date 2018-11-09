@@ -45,6 +45,11 @@ return [
             'driver' => 'session',
             'provider' => 'admins',
         ],
+        //api用户验证
+        'member' => [
+            'driver' => 'session',
+            'provider' => 'members',
+        ],
 
         'api' => [
             'driver' => 'token',
@@ -77,6 +82,11 @@ return [
         'admins' => [
             'driver' => 'eloquent',
             'model' => \App\Models\Admin::class,
+        ],
+
+        'members' => [
+            'driver' => 'eloquent',
+            'model' => \App\Models\Member::class,
         ],
 
         // 'users' => [

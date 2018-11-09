@@ -18,6 +18,11 @@ Route::get('/', function () {
 //设置admin的路由分组
 Route::domain('admin.mt.com')->namespace('Admin')->group(function () {
 
+    //region 平台首页
+    Route::get('/admin/index1','AdminController@index1')->name('admin.index1');
+
+    //endregion
+
     //region设置店铺分类路由
     Route::get('/shopcate/index','ShoupCateController@index')->name('shopcate.index');
     #编辑店铺分类
@@ -100,6 +105,122 @@ Route::domain('admin.mt.com')->namespace('Admin')->group(function () {
     Route::any('/activity/del/{id}','ActivityController@del')->name('admin.activity.del');
     //endregion
 
+    //region 前端用户
+    //用户列表
+    Route::get('/member/index','MemberController@index')->name('admin.member.index');
+
+    //查询会员
+    Route::get('/member/select','MemberController@select')->name('admin.member.select');
+
+    //禁用会员
+    Route::get('/member/status','MemberController@status')->name('admin.member.status');
+
+
+
+    //endregion
+
+    //region 订单统计
+    //订单月统计
+    Route::get('/order/month','OrderController@month')->name('admin.order.month');
+
+    //订单日统计
+    Route::any('/order/day','OrderController@day')->name('admin.order.day');
+
+    //订单总统计
+    Route::any('/order/sum','OrderController@sum')->name('admin.order.sum');
+
+    //endregion
+
+    //region 菜品统计
+    //订单月统计
+    Route::get('/menu/month','MenuController@month')->name('admin.menu.month');
+
+    //菜品日统计
+    Route::get('/menu/day','MenuController@day')->name('admin.menu.day');
+
+    //菜品总统计
+    Route::get('/menu/sum','MenuController@sum')->name('admin.menu.sum');
+
+    //endregion
+
+    //region 权限管理
+    # 添加权限
+    Route::any('/permission/add','PermissionController@add')->name('admin.permission.add');
+    # 编辑权限
+    Route::any('/permission/edit/{id}','PermissionController@edit')->name('admin.permission.edit');
+    # 权限列表
+    Route::get('/permission/index','PermissionController@index')->name('admin.permission.index');
+    # 删除权限
+    Route::get('/permission/del/{id}','PermissionController@del')->name('admin.permission.del');
+
+
+
+    //endregion
+
+    //region 角色管理
+    # 添加角色
+    Route::any('/role/add','RoleController@add')->name('admin.role.add');
+
+    # 角色列表
+    Route::get('/role/index','RoleController@index')->name('admin.role.index');
+
+    # 编辑角色
+    Route::any('/role/edit/{id}','RoleController@edit')->name('admin.role.edit');
+
+    # 角色详情
+    Route::any('/role/ones/{id}','RoleController@ones')->name('admin.role.ones');
+
+    # 删除角色
+    Route::any('/role/del/{id}','RoleController@del')->name('admin.role.del');
+
+    //endregion
+
+    //region 菜单栏管理
+    //添加菜单
+    Route::any('/navs/add','NavsController@add')->name('admin.navs.add');
+    //编辑菜单
+    Route::any('/navs/edit/{id}','NavsController@edit')->name('admin.navs.edit');
+    //菜单列表
+    Route::any('/navs/index','NavsController@index')->name('admin.navs.index');
+    //菜单删除
+    Route::any('/navs/del/{id}','NavsController@del')->name('admin.navs.del');
+
+
+    //endregion
+
+    //region 抽奖
+    //添加抽奖活动
+    Route::any('/event/add','EventController@add')->name('admin.event.add');
+    //编辑抽奖活动
+    Route::any('/event/edit/{id}','EventController@edit')->name('admin.event.edit');
+    //删除抽奖活动
+    Route::get('/event/del/{id}','EventController@del')->name('admin.event.del');
+    //抽奖活动列表
+    Route::any('/event/index','EventController@index')->name('admin.event.index');
+    Route::get('/event/on/{id}','EventController@on')->name('admin.event.on');
+
+
+
+    //endregion
+
+    //region 奖品
+    //添加奖品
+    Route::any('/eventPrize/add/{id}','EventPrizeController@add')->name('admin.eventPrize.add');
+    //删除奖品
+    Route::get('/eventPrize/del{id}','EventPrizeController@del')->name('admin.eventPrize.del');
+    //编辑奖品
+    Route::any('/eventPrize/edit/{id}','EventPrizeController@edit')->name('admin.eventPrize.edit');
+    //显示奖品
+    Route::get('/eventPrize/index/{id}','EventPrizeController@index')->name('admin.eventPrize.index');
+
+    //endregion
+
+    //region 抽奖报名
+    //查看报名信息
+    Route::any('/eventUser/index/{id}','EventUserController@index')->name('admin.eventUser.index');
+
+    //endregion
+
     #公共upload添加图片
     Route::any('/shop/upload','ShopController@upload')->name('admin.shop.upload');
 
@@ -164,11 +285,56 @@ Route::domain('shop.mt.com')->namespace('Shop')->group(function () {
     Route::any('/menucate/moren/{id}','MenuCategoryController@moren')->name('menucate.moren');
     //endregion
 
+    //region 活动
     #显示活动
     Route::any('/Activity/index','ActivityController@index')->name('shop.activity.index');
 
+    //抽奖活动
+    Route::get('/event/index','EventController@index')->name('shop.event.index');
+    //报名抽奖
+    Route::any('/event/luck/{id}','EventController@luck')->name('shop.event.luck');
+    //查看抽奖活动
+    Route::any('/event/select/{id}','EventController@select')->name('shop.event.select');
+
+
+    //endregion
+
+    //region 公共上传图片
     #公共upload添加图片
     Route::any('/shop/upload','ShopController@upload')->name('admin.shop.upload');
+    //endregion
+
+    //region 订单
+    //订单列表
+    Route::get('/order/index','OrderController@index')->name('shop.order.index');
+
+    //订单发货
+    Route::get('/order/status/{id}','OrderController@status')->name('shop.order.status');
+
+    //订单详情
+    Route::any('/order/detail/{id}','OrderController@detail')->name('shop.order.detail');
+
+    //订单统计
+    #总统计
+    Route::any('/order/sum','OrderController@sum')->name('shop.order.sum');
+
+    #按日统计
+    Route::any('/order/day','OrderController@day')->name('shop.order.day');
+    #按月统计
+    Route::any('/order/month','OrderController@month')->name('shop.order.month');
+    //endregion
+
+    //region 菜品销量
+    #按月统计
+    Route::any('/menu/month','MenuController@month')->name('shop.menu.month');
+
+    #按日统计
+    Route::any('/menu/day','MenuController@day')->name('shop.menu.day');
+
+    #总统计统计
+    Route::any('/menu/sum','MenuController@sum')->name('shop.menu.sum');
+
+    //endregion
 
 });
 

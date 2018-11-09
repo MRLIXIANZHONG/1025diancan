@@ -7,7 +7,9 @@ use App\Models\ShoupCategory;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\Rule;
 
 class ShopController extends BaseController
 {
@@ -23,15 +25,13 @@ class ShopController extends BaseController
     {
         //得到所有店铺分类信息
         $shopcates = ShoupCategory::all();
-//        //得到所有商家信息
-//        $users = User::all();
-        //post提交
+
         if ($request->isMethod('post')) {
 
             //验证数据
             $this->validate($request, [
                 'shop_category_id' => 'required',
-                'shop_name' => 'required',
+                'shop_name' => 'required|unique:shops',
                 'shop_img' => 'required',
                 'start_send' => 'required|numeric|min:1',
                 'send_cost' => 'required|numeric|min:1',
@@ -72,7 +72,10 @@ class ShopController extends BaseController
             //验证数据
             $this->validate($request, [
                 'shop_category_id' => 'required',
-                'shop_name' => 'required',
+                'shop_name' => [
+                    'required',
+                    Rule::unique('shops')->ignore($shop->id),
+                ],
                 'start_send' => 'required|numeric|min:1',
                 'send_cost' => 'required|numeric|min:1',
             ]);
@@ -103,26 +106,39 @@ class ShopController extends BaseController
     //删除店铺
     public function del($id){
         $row =Shop::find($id);
-        $photo = $row->shop_img;
-        //查看是否有店铺信息
+
         if ($row->delete()) {
-            //删除图片
-            @unlink($photo);
+            //提示
+            session()->flash("danger","删除成功");
+            //跳转视图
+            return redirect()->route('admin.shop.index');
         }
-        //提示
-        session()->flash("danger","删除成功");
-        //跳转视图
-        return redirect()->route('admin.shop.index');
+
 
     }
 
     //店铺审核
     public function status($id){
-
+        //通过店铺id找到用户
+        $shop=Shop::findOrFail($id);
+        $user = User::findOrFail($shop->user_id);
         //找到shop
         $shop = Shop::find($id);
         $shop->status =1;
         if ($shop->save()) {
+
+            $content = '恭喜店铺审核成功';
+            $to = $user->email;//发邮件个用户
+            $subject = '店铺审核';
+            Mail::send(
+                'admin.email.test',
+                compact("content"),
+                function ($message) use($to, $subject) {
+                    $message->to($to)->subject($subject);
+                }
+            );
+
+
             //提示
             session()->flash("success","审核通过");
             //跳转视图

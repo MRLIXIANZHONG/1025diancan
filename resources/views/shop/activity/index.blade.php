@@ -1,7 +1,7 @@
 {{--继承主模块--}}
 @extends("layouts.shop.main")
 {{--添加标记--}}
-@section("title","管理活动")
+@section("title","活动列表")
 
 
 @section("content")

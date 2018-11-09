@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\Rule;
 
 class UserController extends BaseController
 {
@@ -84,7 +85,10 @@ class UserController extends BaseController
 
             //验证数据
             $this->validate($request,[
-                'name'=>'required|unique:users',
+                'name'=>[
+                    'required',
+                    Rule::unique('users')->ignore($user->id),
+                ],
                 'tel'=>'regex:/^1[34578]\d{9}$/',
                 'email'=>'email',
 

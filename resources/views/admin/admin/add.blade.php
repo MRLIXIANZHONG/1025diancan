@@ -26,6 +26,16 @@
                 <td><input type="password" name="password_confirmation" class="form-control"></td>
             </tr>
 
+
+            <tr>
+                <td>角色:</td>
+                <td>
+                    @foreach($roles as $role)
+                        <input type="checkbox" name="role[]" class="" value="{{$role['id']}}">{{$role['name']}}
+                    @endforeach
+                </td>
+            </tr>
+
             {{--<tr>--}}
                 {{--<td>头像:</td>--}}
                 {{--<td><input type="file" name="photo" class="form-group-sm" ></td>--}}

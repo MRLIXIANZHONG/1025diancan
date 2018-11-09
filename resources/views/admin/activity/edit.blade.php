@@ -21,7 +21,7 @@
 
             <div class="form-group">
                 <label for="start_time">活动开始时间</label>
-                <input type="datetime-local" class="form-control" name="start_time" value="{{$activity->end_time}}" >
+                <input type="datetime-local" class="form-control" name="start_time" value="{{$activity->start_time}}" >
             </div>
 
             <div class="form-group">

@@ -4,9 +4,13 @@ namespace App\Http\Controllers\Shop;
 
 use App\Models\Menu;
 use App\Models\MenuCategory;
+use App\Models\OrderDetail;
+use App\Models\Shop;
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class MenuController extends BaseController
 {
@@ -18,6 +22,7 @@ class MenuController extends BaseController
 
         //搜索条件回显
         $url = $request->post();
+
         //搜索分类
         $menucates = MenuCategory::all();
         //显示当前用户菜品
@@ -143,6 +148,81 @@ class MenuController extends BaseController
         $menu->status=1;
         $menu->save();
         return back()->with('warning','上架成功');
+    }
+
+
+    //菜品销量按日统计
+    public function day(Request $request){
+
+        //接受值
+        $date = $request->get('date') ? $request->get('date') : date('Y-m-d');
+
+        //查看当前用户的店铺，所有商品id
+        $goods_id = Menu::where('shop_id',Auth::user()->shop->id)->pluck('id');
+
+
+
+        //构造url
+        $url = ['date'=>$date];
+        //得到当前店铺
+        $shop_name = User::find(Auth::id())->shop->shop_name;
+        //按日统计
+        $days = OrderDetail::select(DB::raw("goods_name,
+		SUM(amount) AS count,created_at"))
+           ->where('created_at','like',"%$date%")
+           ->whereIn('goods_id',$goods_id)
+            ->groupBy('goods_name')
+            ->simplePaginate(7);
+
+        return view('shop.menu.day', compact('days', 'shop_name','url'));
+    }
+
+    //菜品销量按月统计
+    public function month(Request $request){
+
+        //接受值
+        $date = $request->get('date') ? $request->get('date') : date('Y-m');
+
+        //查看当前用户的店铺，所有商品id
+        $goods_id = Menu::where('shop_id',Auth::user()->shop->id)->pluck('id');
+
+
+
+        //构造url
+        $url = ['date'=>$date];
+        //得到当前店铺
+        $shop_name = User::find(Auth::id())->shop->shop_name;
+        //按日统计
+        $months = OrderDetail::select(DB::raw("goods_name,
+		SUM(amount) AS count,created_at"))
+            ->where('created_at','like',"%$date%")
+            ->whereIn('goods_id',$goods_id)
+            ->groupBy('goods_name')
+            ->simplePaginate(7);
+
+        return view('shop.menu.month', compact('months', 'shop_name','url'));
+    }
+
+    //统计所有的
+    public function sum(Request $request){
+
+
+        //查看当前用户的店铺，所有商品id
+        $goods_id = Menu::where('shop_id',Auth::user()->shop->id)->pluck('id');
+
+
+
+
+        //得到当前店铺
+        $shop_name = User::find(Auth::id())->shop->shop_name;
+        //按日统计
+        $sums = OrderDetail::select(DB::raw("goods_name,
+		SUM(amount) AS count"))
+            ->whereIn('goods_id',$goods_id)
+            ->groupBy('goods_name')
+            ->simplePaginate(7);
+
+        return view('shop.menu.sum', compact('sums', 'shop_name'));
     }
 
 }

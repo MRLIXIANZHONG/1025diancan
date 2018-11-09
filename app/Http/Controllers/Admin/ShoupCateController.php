@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Models\ShoupCategory;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Validation\Rule;
 
 class ShoupCateController extends BaseController
 {
@@ -20,7 +21,7 @@ class ShoupCateController extends BaseController
         if($request->isMethod('post')){
             //验证数据
             $this->validate($request,[
-               'name'=>'required',
+               'name'=>'required|unique:shoup_categories',
                'img'=>'required',
             ]);
             //接受数据
@@ -45,7 +46,10 @@ class ShoupCateController extends BaseController
 
             //验证数据
             $this->validate($request,[
-               'name'=>'required',
+               'name'=>[
+                   'required',
+                   Rule::unique('shoup_categories')->ignore($shopcate->id),
+               ],
             ]);
             //接收值
             $data = $request->post();

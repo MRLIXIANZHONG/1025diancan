@@ -3,13 +3,21 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Activity;
+use App\Models\Navs;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class ActivityController extends BaseController
 {
     //显示活动列表
     public function index(Request $request){
+
+
+
+        //查找当前
+
+
         //显示所有活动
         $activity = Activity::orderBy('id');
         //接受当前值

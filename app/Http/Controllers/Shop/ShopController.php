@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\Rule;
 
 class ShopController extends BaseController
 {
@@ -41,7 +42,7 @@ class ShopController extends BaseController
             //验证数据
             $this->validate($request,[
                 'shop_category_id'=>'required',
-                'shop_name'=>'required',
+                'shop_name'=>'required|unique:shops',
                 'shop_img'=>'required',
                 'start_send'=>'required|numeric|min:1',
                 'send_cost'=>'required|numeric|min:1',
@@ -75,7 +76,7 @@ class ShopController extends BaseController
             $this->validate($request,[
                 'name'=>'required',
                 'shop_category_id'=>'required',
-                'shop_name'=>'required',
+                'shop_name'=>'required|unique:shops',
                 'shop_img'=>'required',
                 'start_send'=>'required|numeric|min:1',
                 'send_cost'=>'required|numeric|min:1',
@@ -136,7 +137,10 @@ class ShopController extends BaseController
             //验证数据
             $this->validate($request,[
                 'shop_category_id'=>'required',
-                'shop_name'=>'required',
+                'shop_name'=>[
+                    'required',
+                    Rule::unique('shops')->ignore($one->id),
+                ],
                 'start_send'=>'required|numeric|min:1',
                 'send_cost'=>'required|numeric|min:1',
                 'captcha'=>'required|captcha',
