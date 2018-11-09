@@ -16,7 +16,7 @@ Route::get('/', function () {
 });
 
 //设置admin的路由分组
-Route::domain('admin.mt.com')->namespace('Admin')->group(function () {
+Route::domain(env('ADMIN_ROUT'))->namespace('Admin')->group(function () {
 
     //region 平台首页
     Route::get('/admin/index1','AdminController@index1')->name('admin.index1');
@@ -230,7 +230,7 @@ Route::domain('admin.mt.com')->namespace('Admin')->group(function () {
 
 
 //设置shop的路由分组
-Route::domain('shop.mt.com')->namespace('Shop')->group(function () {
+Route::domain(env('SHOP_ROUT'))->namespace('Shop')->group(function () {
 
     //region设置商家后台首页
     Route::get('/user/indexs','UserController@indexs')->name('user.indexs');
